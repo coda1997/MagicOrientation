@@ -6,14 +6,72 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:gravity="center_horizontal"
+    >
+        <TextView android:layout_width="match_parent" android:layout_height="100dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="x: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/x"
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="y: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/y"
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="z1: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/z1"
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="z2: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/z2"
+            />
+        </LinearLayout>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="correction"
+                android:id="@+id/bt_correction"
+        />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
