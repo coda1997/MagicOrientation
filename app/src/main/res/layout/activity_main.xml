@@ -72,6 +72,14 @@
             android:text="correction"
                 android:id="@+id/bt_correction"
         />
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="start_timer"
+                android:id="@+id/bt_timer"
+        />
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="end_record"
+                android:id="@+id/bt_end"
+        />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

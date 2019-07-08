@@ -19,6 +19,10 @@
         </activity>
         <activity android:name=".DemoActivity">
         </activity>
+        <activity android:name=".TestActivity">
+
+        </activity>
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
