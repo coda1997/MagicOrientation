@@ -37,10 +37,9 @@ public class TestActivity extends Activity implements OrientationSensorInterface
 
     }
 
+
     @Override
-    public void orientation(Double AZIMUTH, Double PITCH, Double ROLL) {
-        Log.d("Azimuth",String.valueOf(AZIMUTH));
-        Log.d("PITCH",String.valueOf(PITCH));
-        Log.d("ROLL",String.valueOf(ROLL));
+    public void orientation(Double AZIMUTH, Double PITCH, Double ROLL, Double x, Double y, Double z, Double mx, Double my, Double mz) {
+        //test
     }
 }

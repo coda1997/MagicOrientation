@@ -1,4 +1,4 @@
-package com.dadachen.magicorientation
+package com.dadachen.magicorientation.utils
 
 import java.io.File
 import java.io.RandomAccessFile
@@ -11,6 +11,7 @@ fun writeToLocalStorage(content:String){
     if (!file.exists()){
         file.createNewFile()
     }
+//    Log.d("csv files:", content)
 
     val raf = RandomAccessFile(file,"rwd")
     raf.seek((file.length()))

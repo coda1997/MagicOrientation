@@ -26,4 +26,12 @@ public class Matrix3x3 {
 
         return result;
     }
+
+    public static float[] mul3x3x3x1(float[] matrix3x3, float[] matrix3x1){
+        float[] res = new float[3];
+        res[0] = matrix3x3[0]* matrix3x1[0] + matrix3x3[1]* matrix3x1[1] + matrix3x3[2]*matrix3x1[2];
+        res[1] = matrix3x3[3]* matrix3x1[0] + matrix3x3[4]* matrix3x1[1] + matrix3x3[5]*matrix3x1[2];
+        res[2] = matrix3x3[6]* matrix3x1[0] + matrix3x3[7]* matrix3x1[1] + matrix3x3[8]*matrix3x1[2];
+        return res;
+    }
 }

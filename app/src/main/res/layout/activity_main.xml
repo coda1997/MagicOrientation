@@ -58,6 +58,48 @@
                       android:orientation="horizontal"
         >
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="加速度x: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/acc_x"
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="加速度y: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/acc_y"
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="加速度z: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/acc_z"
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:text="z2: "
                       android:layout_weight="1"
                       android:gravity="right"
@@ -66,6 +108,48 @@
                       android:text="0"
                       android:layout_weight="1"
                       android:id="@+id/z2"
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="mx: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/mx"
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="my: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/my"
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+        >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="mz: "
+                      android:layout_weight="1"
+                      android:gravity="right"
+            />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="0"
+                      android:layout_weight="1"
+                      android:id="@+id/mz"
             />
         </LinearLayout>
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content"

@@ -3,6 +3,7 @@ package com.dadachen.magicorientation.sensors;
 import android.content.Context;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
+import android.opengl.Matrix;
 import android.os.Handler;
 import com.dadachen.magicorientation.math.Matrix3x3;
 import com.dadachen.magicorientation.responseProvider.orientationResponseProvider;
@@ -47,7 +48,7 @@ public class Orientation implements Isensor,Observer {
     private float[] gyroMatrix = new float[9];
     private float[] gyroOrientation = new float[3];
     private float[] magnet = new float[3];
-
+    private float[] earthAcc = null;
     public Orientation(Context context, OrientationSensorInterface osi){
         accSensro = new accelerometer(context);
         gySensor = new gyroscope(context);
@@ -186,7 +187,8 @@ public class Orientation implements Isensor,Observer {
     }
 
     public void updateValues(){
-        responseProvider.dispatcher(fusedOrientation);
+        earthAcc = Matrix3x3.mul3x3x3x1(gyroMatrix, accel);
+        responseProvider.dispatcher(fusedOrientation, earthAcc, magnet);
     }
 
     public Runnable updateOrientationValueTask = new Runnable() {
@@ -296,8 +298,8 @@ public class Orientation implements Isensor,Observer {
         SensorManager.getRotationMatrixFromVector(deltaMatrix, deltaVector);
 
         gyroMatrix = Matrix3x3.multiplication(gyroMatrix, deltaMatrix);
-
         SensorManager.getOrientation(gyroMatrix, gyroOrientation);
+
     }
 
     private float[] getRotationMatrixFromOrientation(float[] o) {
