@@ -17,10 +17,9 @@ import java.lang.StringBuilder
 
 
 class MainActivity : AppCompatActivity(), OrientationSensorInterface {
-    //  使用原生安卓的坐标系，并没有调整
     override fun orientation(AZIMUTH: Double?, PITCH: Double?, ROLL: Double?, x: Double, y: Double, z: Double,mx:Double,my:Double,mz:Double) {
-        setRotationValues(AZIMUTH!!, PITCH!!, ROLL!!, leadingAngle)
-        setAcc(x, y, z, leadingAngle)
+        setRotationValues(-AZIMUTH!!, PITCH!!, -ROLL!!, leadingAngle)
+        setAcc(-x, y, -z, leadingAngle)
         setMag(mx,my,mz)
         stringbuilder.appendln()
     }
