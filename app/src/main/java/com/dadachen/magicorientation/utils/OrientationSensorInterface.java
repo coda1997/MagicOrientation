@@ -5,6 +5,6 @@ package com.dadachen.magicorientation.utils;
  */
 public interface OrientationSensorInterface {
 
-    public void orientation(Double AZIMUTH, Double PITCH, Double ROLL);
+    public void orientation(Double AZIMUTH, Double PITCH, Double ROLL, Double x, Double y, Double z, Double mx,Double my, Double mz);
 
 }

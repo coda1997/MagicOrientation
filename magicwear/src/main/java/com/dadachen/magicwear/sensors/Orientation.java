@@ -1,14 +1,13 @@
-package com.dadachen.magicorientation.sensors;
+package com.dadachen.magicwear.sensors;
 
 import android.content.Context;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
-import android.opengl.Matrix;
 import android.os.Handler;
-import com.dadachen.magicorientation.math.Matrix3x3;
-import com.dadachen.magicorientation.responseProvider.orientationResponseProvider;
-import com.dadachen.magicorientation.utils.OrientationSensorInterface;
 
+import com.dadachen.magicwear.math.Matrix3x3;
+import com.dadachen.magicwear.responseProvider.orientationResponseProvider;
+import com.dadachen.magicwear.utils.OrientationSensorInterface;
 
 import java.util.Observable;
 import java.util.Observer;

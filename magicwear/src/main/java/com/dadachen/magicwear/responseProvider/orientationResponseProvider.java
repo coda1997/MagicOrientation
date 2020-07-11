@@ -1,7 +1,7 @@
-package com.dadachen.magicorientation.responseProvider;
+package com.dadachen.magicwear.responseProvider;
 
-import com.dadachen.magicorientation.utils.OrientationSensorInterface;
-import org.json.JSONException;
+import com.dadachen.magicwear.utils.OrientationSensorInterface;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;

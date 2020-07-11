@@ -1,4 +1,4 @@
-package com.dadachen.magicorientation.math;
+package com.dadachen.magicwear.math;
 
 /**
  * Created with IntelliJ IDEA.
