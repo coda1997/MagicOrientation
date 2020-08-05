@@ -3,9 +3,8 @@ package com.dadachen.magicorientation.utils
 import java.io.File
 import java.io.RandomAccessFile
 
-const val filePath = "/storage/emulated/0/watch_data.csv"
 
-fun writeToLocalStorage(content:String){
+fun writeToLocalStorage(filePath: String,content:String){
 
     val file = File(filePath)
     if (!file.exists()){
