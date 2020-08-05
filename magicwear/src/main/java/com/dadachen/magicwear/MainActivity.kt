@@ -7,7 +7,9 @@ import android.support.v4.app.ActivityCompat
 import android.support.wearable.activity.WearableActivity
 import com.dadachen.magicwear.sensors.Orientation
 import com.dadachen.magicwear.utils.OrientationSensorInterface
+import com.dadachen.magicwear.utils.writeToLocalStorage
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.StringBuilder
 
 class MainActivity : WearableActivity(), OrientationSensorInterface {
 
@@ -26,10 +28,20 @@ class MainActivity : WearableActivity(), OrientationSensorInterface {
         // Enables Always-on
         setAmbientEnabled()
     }
+    private var isWrite = false
+    private val stringbuilder = StringBuilder()
 
     private fun initView() {
         bt_collect.setOnClickListener {
-
+            if(isWrite){
+                isWrite = false
+                bt_collect.text = "记录到本地"
+                writeToLocalStorage(stringbuilder.toString())
+                stringbuilder.clear()
+            }else{
+                isWrite=true
+                bt_collect.text = "停止记录"
+            }
         }
 
     }
@@ -67,7 +79,11 @@ class MainActivity : WearableActivity(), OrientationSensorInterface {
         my: Double?,
         mz: Double?
     ) {
-
-
+        tv_rota.text = "Azi:$AZIMUTH, Pi:$PITCH, Ro:$ROLL"
+        tv_acc.text = "Acc: x=$x, y=$y, z=$z"
+        tv_ma.text = "M: mx=$mx, my=$my, mz=$mz"
+        if(isWrite){
+            stringbuilder.appendln("$AZIMUTH, $PITCH, $ROLL, $x, $y, $z, $mx, $my, $mz")
+        }
     }
 }
