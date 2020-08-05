@@ -14,6 +14,8 @@ import com.dadachen.magicorientation.utils.writeToLocalStorage
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.lang.StringBuilder
+import kotlin.math.cos
+import kotlin.math.sin
 
 
 class MainActivity : AppCompatActivity(), OrientationSensorInterface {
@@ -96,8 +98,8 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
     }
 
     private fun matrixMulti(x: Double, y: Double, z: Double, leanding: Double): DoubleArray {
-        val xx = Math.cos(leanding) * (-x) + Math.sin(leanding) * y
-        val yy = -Math.sin(leanding) * (-x) + Math.cos(leanding) * y
+        val xx = cos(leanding) * (-x) + sin(leanding) * y
+        val yy = -sin(leanding) * (-x) + cos(leanding) * y
         return doubleArrayOf(xx, yy, -z)
     }
 
