@@ -162,6 +162,7 @@
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="@string/end_record"
                 android:id="@+id/bt_end"
+                android:enabled="false"
         />
     </LinearLayout>
 

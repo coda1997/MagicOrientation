@@ -11,26 +11,39 @@ import android.widget.TextView
 import com.dadachen.magicorientation.sensors.Orientation
 import com.dadachen.magicorientation.utils.OrientationSensorInterface
 import com.dadachen.magicorientation.utils.writeToLocalStorage
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.lang.StringBuilder
-import kotlin.math.cos
-import kotlin.math.sin
 
 
 class MainActivity : AppCompatActivity(), OrientationSensorInterface {
-    override fun orientation(AZIMUTH: Double?, PITCH: Double?, ROLL: Double?, x: Double, y: Double, z: Double,mx:Double,my:Double,mz:Double) {
-        setRotationValues(-AZIMUTH!!, PITCH!!, -ROLL!!, leadingAngle)
-        setAcc(-x, y, -z, leadingAngle)
-        setMag(mx,my,mz)
-        stringbuilder.appendln()
+    override fun orientation(
+        AZIMUTH: Double?,
+        PITCH: Double?,
+        ROLL: Double?,
+        x: Double,
+        y: Double,
+        z: Double,
+        mx: Double,
+        my: Double,
+        mz: Double
+    ) {
+        count++
+        setRotationValues(AZIMUTH!!, PITCH!!, ROLL!!, leadingAngle)
+        setAcc(x, y, z)
+        setMag(mx, my, mz)
+        stringBuilder.appendln()
     }
 
     private fun setMag(mx: Double, my: Double, mz: Double) {
-        stringbuilder.append("$mx, $my, $mz")
-        find<TextView>(R.id.mx).text=mx.toString()
-        find<TextView>(R.id.my).text=my.toString()
-        find<TextView>(R.id.mz).text=mz.toString()
+        stringBuilder.append("$mx,$my,$mz")
+        find<TextView>(R.id.mx).text = mx.toString()
+        find<TextView>(R.id.my).text = my.toString()
+        find<TextView>(R.id.mz).text = mz.toString()
     }
 
     override fun onResume() {
@@ -59,7 +72,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
 
     private var leadingAngle: Double = 0.0
     private var count = 0
-    private val stringbuilder = StringBuilder()
+    private val stringBuilder = StringBuilder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,43 +81,53 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                1
+            )
         }
         setContentView(R.layout.activity_main)
         initView()
     }
 
     private fun initView() {
-        find<Button>(R.id.bt_correction).onClick {
+        bt_correction.onClick {
             leadingAngle = find<TextView>(R.id.z1).text.toString().toDouble()
         }
 
-        find<Button>(R.id.bt_timer).onClick {
+        bt_timer.onClick {
             count = 0
-            stringbuilder.clear()
+            stringBuilder.clear()
+            bt_timer.isEnabled = false
+            bt_end.isEnabled = true
+            bt_timer.text = "采集中"
+            toast("开始采集")
         }
-        find<Button>(R.id.bt_end).onClick {
-            val content = stringbuilder.toString()
-            writeToLocalStorage(content)
+        bt_end.onClick {
+            val content = stringBuilder.toString()
+            val filePath = "$externalCacheDir/IMU_data_${System.currentTimeMillis()}.csv"
+            withContext(Dispatchers.IO) {
+                writeToLocalStorage(filePath, content)
+            }
+            bt_timer.isEnabled = true
+            bt_end.isEnabled = false
+            bt_timer.text = "开始采集"
+            toast("结束采集，数据已保存")
         }
     }
 
-    private fun setAcc(x: Double, y: Double, z: Double, leanding: Double) {
-        val acc = matrixMulti(x, y, z, leanding)
-        find<TextView>(R.id.acc_x).text = String.format("%.2f", acc[0])
-        find<TextView>(R.id.acc_y).text = String.format("%.2f", acc[1])
-        find<TextView>(R.id.acc_z).text = String.format("%.2f", acc[2])
-        stringbuilder.append("${acc[0]}, ${acc[1]}, ${acc[2]}, ")
+
+    private fun setAcc(x: Double, y: Double, z: Double) {
+        acc_x.text = String.format("%.2f", x)
+        acc_y.text = String.format("%.2f", y)
+        acc_z.text = String.format("%.2f", z)
+        stringBuilder.append("${y},${x},${z}, ")
     }
 
-    private fun matrixMulti(x: Double, y: Double, z: Double, leanding: Double): DoubleArray {
-        val xx = cos(leanding) * (-x) + sin(leanding) * y
-        val yy = -sin(leanding) * (-x) + cos(leanding) * y
-        return doubleArrayOf(xx, yy, -z)
-    }
 
-    private fun setRotationValues(z: Double, x: Double, y: Double, leanding: Double) {
-        var z2 = z - leanding
+    private fun setRotationValues(z: Double, x: Double, y: Double, leading: Double) {
+        var z2 = z - leading
         while (z2 < 0) {
             z2 += 360
         }
@@ -112,7 +135,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
         if (z2 > 180) {
             z2 -= 360
         }
-        stringbuilder.append("${System.nanoTime()} ,$x, $y, $z2, ")
+        stringBuilder.append("${System.currentTimeMillis()},$x,$y,$z2,")
         find<TextView>(R.id.x).text = String.format("%.2f", x)
         find<TextView>(R.id.y).text = String.format("%.2f", y)
         find<TextView>(R.id.z1).text = String.format("%.2f", z)

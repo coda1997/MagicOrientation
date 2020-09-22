@@ -79,11 +79,14 @@ class MainActivity : WearableActivity(), OrientationSensorInterface {
         my: Double?,
         mz: Double?
     ) {
-        tv_rota.text = "Azi:$AZIMUTH, Pi:$PITCH, Ro:$ROLL"
-        tv_acc.text = "Acc: x=$x, y=$y, z=$z"
-        tv_ma.text = "M: mx=$mx, my=$my, mz=$mz"
+        val s = "Azi:$AZIMUTH, Pi:$PITCH, Ro:$ROLL"
+        tv_rota.text = s
+        val s1 = "Acc: x=$x, y=$y, z=$z"
+        tv_acc.text = s1
+        val s2 = "M: mx=$mx, my=$my, mz=$mz"
+        tv_ma.text = s2
         if(isWrite){
-            stringbuilder.appendln("$AZIMUTH, $PITCH, $ROLL, $x, $y, $z, $mx, $my, $mz")
+            stringbuilder.appendln("${System.currentTimeMillis()},$AZIMUTH,$PITCH,$ROLL,$x,$y,$z,$mx,$my,$mz")
         }
     }
 }
