@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
     }
 
     private fun setMag(mx: Double, my: Double, mz: Double) {
-        stringBuilder.append("$mx, $my, $mz")
+        stringBuilder.append("$mx,$my,$mz")
         find<TextView>(R.id.mx).text = mx.toString()
         find<TextView>(R.id.my).text = my.toString()
         find<TextView>(R.id.mz).text = mz.toString()
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
         acc_x.text = String.format("%.2f", x)
         acc_y.text = String.format("%.2f", y)
         acc_z.text = String.format("%.2f", z)
-        stringBuilder.append("${y}, ${x}, ${z}, ")
+        stringBuilder.append("${y},${x},${z}, ")
     }
 
 
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
         if (z2 > 180) {
             z2 -= 360
         }
-        stringBuilder.append("${System.currentTimeMillis()} ,$x, $y, $z2, ")
+        stringBuilder.append("${System.currentTimeMillis()},$x,$y,$z2,")
         find<TextView>(R.id.x).text = String.format("%.2f", x)
         find<TextView>(R.id.y).text = String.format("%.2f", y)
         find<TextView>(R.id.z1).text = String.format("%.2f", z)
