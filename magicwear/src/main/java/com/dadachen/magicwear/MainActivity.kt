@@ -86,7 +86,7 @@ class MainActivity : WearableActivity(), OrientationSensorInterface {
         val s2 = "M: mx=$mx, my=$my, mz=$mz"
         tv_ma.text = s2
         if(isWrite){
-            stringbuilder.appendln("$AZIMUTH, $PITCH, $ROLL, $x, $y, $z, $mx, $my, $mz")
+            stringbuilder.appendln("${System.currentTimeMillis()},$AZIMUTH,$PITCH,$ROLL,$x,$y,$z,$mx,$my,$mz")
         }
     }
 }
