@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
         my: Double,
         mz: Double
     ) {
+        count++
         setRotationValues(AZIMUTH!!, PITCH!!, ROLL!!, leadingAngle)
         setAcc(x, y, z)
         setMag(mx, my, mz)
@@ -134,7 +135,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
         if (z2 > 180) {
             z2 -= 360
         }
-        stringBuilder.append("${System.nanoTime()} ,$x, $y, $z2, ")
+        stringBuilder.append("${System.currentTimeMillis()} ,$x, $y, $z2, ")
         find<TextView>(R.id.x).text = String.format("%.2f", x)
         find<TextView>(R.id.y).text = String.format("%.2f", y)
         find<TextView>(R.id.z1).text = String.format("%.2f", z)
