@@ -27,6 +27,7 @@ public class Orientation implements Isensor,Observer {
     private accelerometer accSensro;
     private gyroscope gySensor;
     private magnetic mgSensor;
+    private RotationVector rotationVectorSensor;
     private Handler orientationHandler = new Handler();
     private orientationResponseProvider responseProvider;
 
@@ -48,12 +49,13 @@ public class Orientation implements Isensor,Observer {
     private float[] gyroMatrix = new float[9];
     private float[] gyroOrientation = new float[3];
     private float[] magnet = new float[3];
+    private float[] rotationVector = new float[4];
     private float[] earthAcc = null;
     public Orientation(Context context, OrientationSensorInterface osi){
         accSensro = new accelerometer(context);
         gySensor = new gyroscope(context);
         mgSensor = new magnetic(context);
-
+        rotationVectorSensor = new RotationVector(context);
         gyroOrientation[0] = 0.0f;
         gyroOrientation[1] = 0.0f;
         gyroOrientation[2] = 0.0f;
@@ -82,7 +84,7 @@ public class Orientation implements Isensor,Observer {
         accSensro = null;
         gySensor = null;
         mgSensor = null;
-        
+        rotationVectorSensor = null;
         responseProvider = null;
     }
     
@@ -119,6 +121,11 @@ public class Orientation implements Isensor,Observer {
         if (mgSensor.isSupport()){
             mgSensor.addObserver(this);
             mgSensor.on(speed);
+        }
+
+        if(rotationVectorSensor.isSupport()){
+            rotationVectorSensor.addObserver(this);
+            rotationVectorSensor.on(speed);
         }
 
         // time reference: http://webraidmobile.wordpress.com/2010/10/21/how-long-is-sensor_delay_game/
@@ -161,6 +168,10 @@ public class Orientation implements Isensor,Observer {
             mgSensor.deleteObserver(this);
             mgSensor.off();
         }
+        if (rotationVectorSensor.isSupport()) {
+            rotationVectorSensor.deleteObserver(this);
+            rotationVectorSensor.off();
+        }
     }
 
     @Override
@@ -184,11 +195,14 @@ public class Orientation implements Isensor,Observer {
         if (observable instanceof magnetic)
             System.arraycopy(mgSensor.getEvent().values, 0, magnet, 0, 3);
 
+        if (observable instanceof RotationVector) {
+            System.arraycopy(rotationVectorSensor.getEvent().values, 0, rotationVector, 0, 4);
+        }
     }
 
     public void updateValues(){
         earthAcc = Matrix3x3.mul3x3x3x1(gyroMatrix, accel);
-        responseProvider.dispatcher(fusedOrientation, earthAcc, magnet);
+        responseProvider.dispatcher(fusedOrientation, earthAcc, magnet, rotationVector);
     }
 
     public Runnable updateOrientationValueTask = new Runnable() {

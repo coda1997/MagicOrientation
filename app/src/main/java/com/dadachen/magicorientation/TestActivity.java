@@ -39,7 +39,7 @@ public class TestActivity extends Activity implements OrientationSensorInterface
 
 
     @Override
-    public void orientation(Double AZIMUTH, Double PITCH, Double ROLL, Double x, Double y, Double z, Double mx, Double my, Double mz) {
-        //test
+    public void orientation(Double AZIMUTH, Double PITCH, Double ROLL, Double x, Double y, Double z, Double mx, Double my, Double mz, Float r1, Float r2, Float r3, Float r4) {
+
     }
 }
