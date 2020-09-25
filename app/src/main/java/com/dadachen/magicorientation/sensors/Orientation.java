@@ -46,6 +46,7 @@ public class Orientation implements Isensor,Observer {
 
     private float[] accel = new float[3];
     private float[] gyro = new float[3];
+    private float[] gyroV = new float[3];
     private float[] gyroMatrix = new float[9];
     private float[] gyroOrientation = new float[3];
     private float[] magnet = new float[3];
@@ -202,7 +203,7 @@ public class Orientation implements Isensor,Observer {
 
     public void updateValues(){
         earthAcc = Matrix3x3.mul3x3x3x1(gyroMatrix, accel);
-        responseProvider.dispatcher(fusedOrientation, earthAcc, magnet, rotationVector);
+        responseProvider.dispatcher(fusedOrientation, earthAcc, magnet, rotationVector, gyroV);
     }
 
     public Runnable updateOrientationValueTask = new Runnable() {
@@ -302,6 +303,7 @@ public class Orientation implements Isensor,Observer {
         if(timestamp != 0) {
             final float dT = (event.timestamp - timestamp) * NS2S;
             System.arraycopy(event.values, 0, gyro, 0, 3);
+            System.arraycopy(event.values, 0, gyroV,0,3);
             getRotationVectorFromGyro(gyro, deltaVector, dT / 2.0f);
         }
 

@@ -20,23 +20,34 @@ import java.lang.StringBuilder
 
 class MainActivity : AppCompatActivity(), OrientationSensorInterface {
     override fun orientation(
-        AZIMUTH: Double?,
-        PITCH: Double?,
-        ROLL: Double?,
-        x: Double,
-        y: Double,
-        z: Double,
-        mx: Double,
-        my: Double,
-        mz: Double,
-        r1:Float, r2:Float,  r3:Float, r4:Float
+        eulerAngles: FloatArray?,
+        acc: FloatArray?,
+        mag: FloatArray?,
+        rotationVector: FloatArray?,
+        gyroscopeRaw: FloatArray?
     ) {
         count++
-        setRotationValues(AZIMUTH!!, PITCH!!, ROLL!!, leadingAngle)
-        setAcc(x, y, z)
-        setMag(mx, my, mz)
-        setRotationVector(r1, r2, r3, r4)
+        if (eulerAngles != null) {
+            setRotationValues(eulerAngles[2],eulerAngles[0],eulerAngles[1], leadingAngle)
+        }
+        if (acc != null) {
+            setAcc(acc[0],acc[1],acc[2])
+        }
+        if (mag != null) {
+            setMag(mag[0],mag[1],mag[2])
+        }
+        if(rotationVector!=null){
+            setRotationVector(rotationVector[0],rotationVector[1], rotationVector[2], rotationVector[3])
+        }
+        if (gyroscopeRaw != null) {
+            setGroV(gyroscopeRaw[0], gyroscopeRaw[1], gyroscopeRaw[2])
+        }
         stringBuilder.appendln()
+
+    }
+
+    private fun setGroV(rotx: Float, roty: Float, rotz: Float) {
+        stringBuilder.append("${rotx},${roty},${rotz}")
     }
 
     private fun setRotationVector(r1: Float, r2: Float, r3: Float, r4: Float) {
@@ -44,10 +55,10 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
         tv_r2.text = String.format("%.2f", r2)
         tv_r3.text = String.format("%.2f", r3)
         tv_r4.text = String.format("%.2f", r4)
-        stringBuilder.append("${r1},${r2},${r3},${r4}")
+        stringBuilder.append("${r1},${r2},${r3},${r4},")
     }
 
-    private fun setMag(mx: Double, my: Double, mz: Double) {
+    private fun setMag(mx: Float, my: Float, mz: Float) {
         stringBuilder.append("$mx,$my,$mz,")
         find<TextView>(R.id.mx).text = mx.toString()
         find<TextView>(R.id.my).text = my.toString()
@@ -78,7 +89,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
     }
 
 
-    private var leadingAngle: Double = 0.0
+    private var leadingAngle: Float = 0.0F
     private var count = 0
     private val stringBuilder = StringBuilder()
 
@@ -101,7 +112,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
 
     private fun initView() {
         bt_correction.onClick {
-            leadingAngle = find<TextView>(R.id.z1).text.toString().toDouble()
+            leadingAngle = find<TextView>(R.id.z1).text.toString().toFloat()
         }
 
         bt_timer.onClick {
@@ -126,7 +137,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
     }
 
 
-    private fun setAcc(x: Double, y: Double, z: Double) {
+    private fun setAcc(x: Float, y: Float, z: Float) {
         acc_x.text = String.format("%.2f", x)
         acc_y.text = String.format("%.2f", y)
         acc_z.text = String.format("%.2f", z)
@@ -134,7 +145,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
     }
 
 
-    private fun setRotationValues(z: Double, x: Double, y: Double, leading: Double) {
+    private fun setRotationValues(z: Float, x: Float, y: Float, leading: Float) {
         var z2 = z - leading
         while (z2 < 0) {
             z2 += 360

@@ -5,6 +5,7 @@ package com.dadachen.magicorientation.utils;
  */
 public interface OrientationSensorInterface {
 
-    public void orientation(Double AZIMUTH, Double PITCH, Double ROLL, Double x, Double y, Double z, Double mx,Double my, Double mz, Float r1, Float r2, Float r3, Float r4);
+    void orientation(float[] eulerAngles, float[] acc, float[] mag, float[] rotationVector,
+                     float[] gyroscopeRaw);
 
 }
