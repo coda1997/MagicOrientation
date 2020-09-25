@@ -6,14 +6,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 
-import android.widget.Button
 import android.widget.TextView
 import com.dadachen.magicorientation.sensors.Orientation
 import com.dadachen.magicorientation.utils.OrientationSensorInterface
 import com.dadachen.magicorientation.utils.writeToLocalStorage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -30,17 +28,23 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
         z: Double,
         mx: Double,
         my: Double,
-        mz: Double
+        mz: Double,
+        r1:Float, r2:Float,  r3:Float, r4:Float
     ) {
         count++
         setRotationValues(AZIMUTH!!, PITCH!!, ROLL!!, leadingAngle)
         setAcc(x, y, z)
         setMag(mx, my, mz)
+        setRotationVector(r1, r2, r3, r4)
         stringBuilder.appendln()
     }
 
+    private fun setRotationVector(r1: Float, r2: Float, r3: Float, r4: Float) {
+        stringBuilder.append("${r1},${r2},${r3},${r4}")
+    }
+
     private fun setMag(mx: Double, my: Double, mz: Double) {
-        stringBuilder.append("$mx,$my,$mz")
+        stringBuilder.append("$mx,$my,$mz,")
         find<TextView>(R.id.mx).text = mx.toString()
         find<TextView>(R.id.my).text = my.toString()
         find<TextView>(R.id.mz).text = mz.toString()
@@ -122,7 +126,7 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
         acc_x.text = String.format("%.2f", x)
         acc_y.text = String.format("%.2f", y)
         acc_z.text = String.format("%.2f", z)
-        stringBuilder.append("${y},${x},${z}, ")
+        stringBuilder.append("${y},${x},${z},")
     }
 
 

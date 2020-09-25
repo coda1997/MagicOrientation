@@ -38,7 +38,7 @@ public class orientationResponseProvider {
         tolerance.add(2, rollTol);
     }
 
-    public void dispatcher(float[] gyroOrientation, float[] acc, float[] mag) {
+    public void dispatcher(float[] gyroOrientation, float[] acc, float[] mag, float[] rotationVector) {
 
         Double azimuth = gyroOrientation[0] * 180 / Math.PI;
         if (azimuth < 0)
@@ -59,7 +59,7 @@ public class orientationResponseProvider {
             double mx = mag[0];
             double my = mag[1];
             double mz = mag[2];
-            observer.orientation(sensorValueLog.get(0), sensorValueLog.get(1), sensorValueLog.get(2), x,y,z, mx,my,mz);
+            observer.orientation(sensorValueLog.get(0), sensorValueLog.get(1), sensorValueLog.get(2), x,y,z, mx,my,mz, rotationVector[0], rotationVector[1],rotationVector[2],rotationVector[3]);
 
         }
     }
