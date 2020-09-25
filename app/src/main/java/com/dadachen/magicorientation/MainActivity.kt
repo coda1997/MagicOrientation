@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity(), OrientationSensorInterface {
     }
 
     private fun setRotationVector(r1: Float, r2: Float, r3: Float, r4: Float) {
+        tv_r1.text = String.format("%.2f", r1)
+        tv_r2.text = String.format("%.2f", r2)
+        tv_r3.text = String.format("%.2f", r3)
+        tv_r4.text = String.format("%.2f", r4)
         stringBuilder.append("${r1},${r2},${r3},${r4}")
     }
 
