@@ -15,7 +15,7 @@ public class RotationVector extends Observable implements SensorEventListener, I
 
     public RotationVector(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
 
     }
     public SensorEvent getEvent(){
