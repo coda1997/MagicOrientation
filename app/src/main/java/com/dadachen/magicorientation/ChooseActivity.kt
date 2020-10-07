@@ -76,6 +76,11 @@ class ChooseActivity : AppCompatActivity() {
         sensorManager.registerListener(gyrol, gyroVSensor, SensorManager.SENSOR_DELAY_FASTEST)
     }
 
+    override fun onResume() {
+        super.onResume()
+        initSensor()
+    }
+
     override fun onPause() {
         super.onPause()
         sensorManager.unregisterListener(accl)
