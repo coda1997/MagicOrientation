@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.dadachen.magicorientation.utils.writeToLocalStorage
 import kotlinx.android.synthetic.main.activity_choose.*
-import kotlinx.coroutines.delay
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.lang.StringBuilder
 import java.lang.Thread.sleep
@@ -99,21 +98,21 @@ class ChooseActivity : AppCompatActivity() {
         }
     }
     private var recording = false
-    private val stringbuilder = StringBuilder()
+    private val stringBuilder = StringBuilder()
     private val frequency = 200
     private fun startRecord() {
-        stringbuilder.clear()
+        stringBuilder.clear()
         recording = true
         thread(start = true) {
             while (recording){
                 val content = "${System.currentTimeMillis()},${acc[0]},${acc[1]},${acc[2]},${gyro[0]},${gyro[1]},${gyro[2]},${rotVector[0]},${rotVector[1]},${rotVector[2]},${rotVector[3]}"
-                stringbuilder.appendln(content)
+                stringBuilder.appendln(content)
                 sleep((1000/frequency).toLong())
             }
         }
     }
     private fun endRecord() {
         recording = false
-        writeToLocalStorage("$externalCacheDir/IMU-acc-gyro-rotv-${System.currentTimeMillis()}.csv",stringbuilder.toString())
+        writeToLocalStorage("$externalCacheDir/IMU-acc-gyro-rotv-${System.currentTimeMillis()}.csv",stringBuilder.toString())
     }
 }
