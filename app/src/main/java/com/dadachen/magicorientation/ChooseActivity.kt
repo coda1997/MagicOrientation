@@ -1,6 +1,7 @@
 package com.dadachen.magicorientation
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -8,6 +9,8 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.SeekBar
+import com.dadachen.magicorientation.utils.Utils
 import com.dadachen.magicorientation.utils.writeToLocalStorage
 import kotlinx.android.synthetic.main.activity_choose.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -23,10 +26,11 @@ class ChooseActivity : AppCompatActivity() {
     private var rotVSensor:Sensor? = null
     private var accVSensor:Sensor? = null
     private var gyroVSensor:Sensor? = null
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose)
-
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE)
         initSensor()
         initView()
 
@@ -87,7 +91,7 @@ class ChooseActivity : AppCompatActivity() {
         sensorManager.unregisterListener(gyrol)
         sensorManager.unregisterListener(rotl)
     }
-
+    private val freq = "freq"
     private fun initView() {
         bt_start_record.isEnabled = true
         bt_end_record.isEnabled = false
@@ -95,16 +99,38 @@ class ChooseActivity : AppCompatActivity() {
             startRecord()
             bt_end_record.isEnabled = true
             bt_start_record.isEnabled = false
+            seekBar_frequency.isEnabled = false
         }
         bt_end_record.onClick {
             endRecord()
             bt_start_record.isEnabled = true
             bt_end_record.isEnabled = false
+            seekBar_frequency.isEnabled = true
         }
+
+        //seek bar and its display textView initialization
+        seekBar_frequency.progress = sharedPreferences.getInt(freq,200)
+        frequency = seekBar_frequency.progress
+        tv_freq.text = "$frequency Hz"
+        seekBar_frequency.incrementProgressBy(10)
+        seekBar_frequency.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                tv_freq.text = "$p1 Hz"
+            }
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                val ff = p0?.progress?:200
+                frequency = ff
+                Utils.setValueBySharedPreference(sharedPreferences,freq,p0!!.progress)
+            }
+
+        })
     }
     private var recording = false
     private val stringBuilder = StringBuilder()
-    private val frequency = 200
+    private var frequency = 200
     private fun startRecord() {
         stringBuilder.clear()
         recording = true
