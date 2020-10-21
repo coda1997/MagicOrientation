@@ -1,5 +1,6 @@
 package com.dadachen.magicorientation
 
+import com.dadachen.magicorientation.utils.Utils
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -11,7 +12,11 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun `时间打印测试`(){
+        val ms = System.currentTimeMillis()
+        val res = Utils.getTime(ms)
+        println(res)
     }
+
+
 }

@@ -1,14 +1,14 @@
-package com.dadachen.magicorientation.utils;
+package com.dadachen.magicwear.utils;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -156,9 +156,9 @@ public class Utils {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(activity,
-                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            android.Manifest.permission.ACCESS_WIFI_STATE,
-                            android.Manifest.permission.INTERNET}
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.ACCESS_WIFI_STATE,
+                            Manifest.permission.INTERNET}
                     , 1
             );
         }
